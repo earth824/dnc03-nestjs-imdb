@@ -4,8 +4,16 @@ import { UserModule } from './user/user.module.js';
 import { MovieModule } from './movie/movie.module.js';
 import { ReviewModule } from './review/review.module.js';
 import { AppConfigModule } from './config/app-config.module.js';
+import { PrismaModule } from './prisma/prisma.module.js';
 
 @Module({
-  imports: [AuthModule, UserModule, MovieModule, ReviewModule, AppConfigModule],
+  imports: [
+    AuthModule,
+    UserModule,
+    MovieModule,
+    ReviewModule,
+    AppConfigModule,
+    PrismaModule,
+  ],
 })
 export class AppModule {}
