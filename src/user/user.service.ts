@@ -13,6 +13,11 @@ type CreateInput = {
   gender?: Gender;
 };
 
+type CreateAdminInput = {
+  email: string;
+  password: string;
+};
+
 @Injectable()
 export class UserService {
   constructor(
@@ -22,7 +27,7 @@ export class UserService {
 
   async create(input: CreateInput): Promise<User> {
     const lowerCaseEmail = input.email.toLowerCase();
-    const existUser = await this.userRepository.findByEmail(lowerCaseEmail);
+    const existUser = await this.findByEmail(input.email);
 
     if (existUser) {
       throw new ConflictException('Email is already in use');
@@ -40,5 +45,17 @@ export class UserService {
     }
 
     return user;
+  }
+
+  findByEmail(email: string): Promise<User | null> {
+    return this.userRepository.findByEmail(email.toLowerCase());
+  }
+
+  findById(id: number): Promise<User | null> {
+    return this.userRepository.findById(id);
+  }
+
+  createAdmin(input: CreateAdminInput): Promise<User> {
+    return this.create({ ...input, role: 'ADMIN' });
   }
 }

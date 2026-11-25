@@ -11,4 +11,11 @@ export class AppConfigService {
       url: this.configService.get('DATABASE_URL', { infer: true }),
     };
   }
+
+  get jwt() {
+    return {
+      secret: this.configService.get('JWT_SECRET', { infer: true }),
+      expires: this.configService.get('JWT_EXPIRES_IN', { infer: true }),
+    };
+  }
 }

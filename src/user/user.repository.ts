@@ -29,4 +29,8 @@ export class UserRepository {
       throw error;
     }
   }
+
+  findById(id: number): Promise<User | null> {
+    return this.prisma.user.findUnique({ where: { id } });
+  }
 }
